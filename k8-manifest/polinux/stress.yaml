@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: stress-test
+spec:
+  containers:
+    - name: stress
+      image: polinux/stress
+      command:
+        - stress
+        - --cpu
+        - "4"          # Number of CPU workers (adjust this based on your needs)
+        - --timeout
+        - "1h"         # Duration for which the stress should run
+      resources:
+        requests:
+          cpu: "1"       # Request 1 CPU core
+        limits:
+          cpu: "4"       # Limit to 4 CPU cores (adjust as necessary)
