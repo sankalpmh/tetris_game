@@ -3,7 +3,7 @@ name: Deploy to AKS
 on:
   push:
     branches:
-      - main  # Set the branch you want to trigger the deployment on
+      - master  # Set the branch you want to trigger the deployment on
 
 jobs:
   deploy:
