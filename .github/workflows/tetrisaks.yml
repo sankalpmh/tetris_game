@@ -17,6 +17,9 @@ jobs:
         with:
           version: 'v1.29.7'  # Corrected to match the Kubernetes versioning
 
+      - name: Create .kube directory
+        run: mkdir -p $HOME/.kube
+
       - name: Set up Kubeconfig
         run: |
           echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > $HOME/.kube/config
