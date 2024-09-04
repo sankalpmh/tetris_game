@@ -15,7 +15,7 @@ jobs:
       - name: Set up Kubernetes CLI
         uses: azure/setup-kubectl@v1
         with:
-          version: '1.29.7'  # Specify the Kubernetes version you need
+          version: 'v1.29.7'  # Corrected to match the Kubernetes versioning
 
       - name: Set up Kubeconfig
         run: |
