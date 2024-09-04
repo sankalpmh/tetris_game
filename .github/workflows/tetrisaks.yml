@@ -3,23 +3,23 @@ name: Deploy to AKS
 on:
   push:
     branches:
-      - master  # Update this to your desired branch
+      - main  # Set the branch you want to trigger the deployment on
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up K8s credentials
-        uses: azure/setup-kubectl@v3
+      - name: Set up Kubernetes CLI
+        uses: azure/setup-kubectl@v1
         with:
-          version: 'latest'
+          version: '1.26.0'  # Specify the Kubernetes version you need
 
-      - name: Configure Kubeconfig
-        run: echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+      - name: Set up Kubeconfig
+        run: |
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > $HOME/.kube/config
 
       - name: Deploy manifests
         run: |
