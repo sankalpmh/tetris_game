@@ -3,7 +3,7 @@ name: Deploy to AKS
 on:
   push:
     branches:
-      - main  # Update this to your desired branch
+      - master  # Update this to your desired branch
 
 jobs:
   deploy:
