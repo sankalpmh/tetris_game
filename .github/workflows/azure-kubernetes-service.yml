@@ -1,34 +1,34 @@
-name: Deploy to Kubernetes
+name: Deploy to AKS
 
 on:
   push:
     branches:
-      - main  # or your desired branch
+      - main  # Update this to your desired branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up K8s credentials
-      uses: azure/setup-kubectl@v3
-      with:
-        version: 'latest'
-    
-    # If you're using a kubeconfig file stored as a GitHub secret
-    - name: Configure Kubeconfig
-      run: echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+      - name: Set up K8s credentials
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
 
-    - name: Deploy manifests
-      run: |
-        kubectl apply -f k8-manifest/k8-deployment.yaml
-        kubectl apply -f k8-manifest/k8-service.yaml
-        kubectl apply -f k8-manifest/metrics-server.yaml
-        kubectl apply -f k8-manifest/tetris-hpa.yaml
+      - name: Configure Kubeconfig
+        run: echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
 
-    # Optional: Check deployment status
-    - name: Check deployment status
-      run: kubectl rollout status deployment/tetris-deployment
+      - name: Deploy manifests
+        run: |
+          kubectl apply -f k8-manifest/k8-deployment.yaml
+          kubectl apply -f k8-manifest/k8-service.yaml
+          kubectl apply -f k8-manifest/metrics-server.yaml
+          kubectl apply -f k8-manifest/tetris-hpa.yaml
+
+      - name: Verify Deployment
+        run: |
+          kubectl rollout status deployment/tetris-deployment
+          kubectl get pods
