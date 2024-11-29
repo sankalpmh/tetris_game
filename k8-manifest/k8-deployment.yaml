@@ -1,9 +1,11 @@
+# tetris-deployment.yaml
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tetris-deployment
 spec:
-  replicas: 4 # You can adjust the number of replicas as needed
+  replicas: 2 # You can adjust the number of replicas as needed
   selector:
     matchLabels:
       app: tetris
@@ -14,13 +16,6 @@ spec:
     spec:
       containers:
         - name: tetris
-          image: adijaiswal/tetris:v2 # Replace with the actual image tag
+          image: nasi101/tetris # Replace with the actual image tag
           ports:
             - containerPort: 80 # Replace with the port your Tetris game listens on
-          resources:
-            requests:
-              cpu: "100m"          # Request 0.1 CPU core
-              memory: "256Mi"      # Request 256 MiB of memory
-            limits:
-              cpu: "500m"          # Limit to 0.5 CPU core
-              memory: "512Mi"      # Limit to 512 MiB of memory
